@@ -1,34 +1,18 @@
-import { ADD, DELETE, CHANGE_FILTER, CHANGE_FLAG } from "./contactTypes";
+import { createAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
-const addContact = ({ name, number }) => ({
-  type: ADD,
+const addContact = createAction("contacts/add", ({ name, number }) => ({
   payload: {
     id: uuidv4(),
     name,
     number,
   },
-});
+}));
 
-const deleteContact = (contactId) => ({
-  type: DELETE,
-  payload: {
-    contactId,
-  },
-});
+const deleteContact = createAction("contacts/delete");
+const changeFilter = createAction("contacts/change");
+const changeFlag = createAction("contacts/change_flag");
 
-const changeFilter = (filter) => ({
-  type: CHANGE_FILTER,
-  payload: {
-    filter,
-  },
-});
+const contactsActions = { addContact, deleteContact, changeFilter, changeFlag };
 
-const changeFlag = (inList) => ({
-  type: CHANGE_FLAG,
-  payload: {
-    inList,
-  },
-});
-
-export default { addContact, deleteContact, changeFilter, changeFlag };
+export default contactsActions;
